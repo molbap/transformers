@@ -26,7 +26,7 @@ from transformers.tokenization_utils_base import INIT_TOKENIZER_DOCSTRING
 from transformers.tokenization_utils_fast import PreTrainedTokenizerFast
 from transformers.utils import add_end_docstrings
 
-from ...utils import is_levenshtein_available, is_nltk_available, requires_backends
+from ...utils import is_levenshtein_available, is_nltk_available, logging, requires_backends
 
 
 if is_levenshtein_available():
@@ -34,6 +34,9 @@ if is_levenshtein_available():
 
 if is_nltk_available():
     import nltk
+
+
+logger = logging.get_logger(__name__)
 
 
 INIT_TOKENIZER_DOCSTRING += """
@@ -372,7 +375,7 @@ class NougatTokenizerFast(PreTrainedTokenizerFast):
         # most likely hallucinated titles
         lines = generation.split("\n")
         if lines[-1].startswith("#") and lines[-1].lstrip("#").startswith(" ") and len(lines) > 1:
-            print("INFO: likely hallucinated title at the end of the page: " + lines[-1])
+            logger.info("INFO: likely hallucinated title at the end of the page: " + lines[-1])
             generation = "\n".join(lines[:-1])
         # obvious repetition detection
         generation = truncate_repetitions(generation)
