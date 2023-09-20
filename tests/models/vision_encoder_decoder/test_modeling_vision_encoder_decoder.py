@@ -25,6 +25,7 @@ from transformers import DonutProcessor, NougatProcessor, TrOCRProcessor
 from transformers.testing_utils import (
     require_cv2,
     require_levenshtein,
+    require_nltk,
     require_sentencepiece,
     require_torch,
     require_vision,
@@ -1004,9 +1005,10 @@ class DonutModelIntegrationTest(unittest.TestCase):
 
 
 @require_cv2
-@require_vision
-@require_torch
 @require_levenshtein
+@require_nltk
+@require_torch
+@require_vision
 @slow
 class NougatModelIntegrationTest(unittest.TestCase):
     @cached_property
@@ -1055,9 +1057,6 @@ class NougatModelIntegrationTest(unittest.TestCase):
             pixel_values,
             min_length=1,
             max_length=3584,
-            pad_token_id=processor.tokenizer.pad_token_id,
-            eos_token_id=processor.tokenizer.eos_token_id,
-            use_cache=True,
             bad_words_ids=[[processor.tokenizer.unk_token_id]],
             return_dict_in_generate=True,
             output_scores=True,
