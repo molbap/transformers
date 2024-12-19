@@ -420,7 +420,7 @@ def segment_sum(input_tensor):
 
 is_fast_path_available = all((selective_state_update, causal_conv1d_fn, causal_conv1d_update))
 
-
+# Fix from https://github.com/huggingface/transformers/pull/35154 by @vasqu on mamba2 
 def apply_mask_to_padding_states(hidden_states, attention_mask):
     """
     Tunes out the hidden states for padding tokens, see https://github.com/state-spaces/mamba/issues/66

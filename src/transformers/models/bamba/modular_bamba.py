@@ -191,7 +191,7 @@ class BambaAttention(LlamaAttention):
 class BambaRMSNormGated(MambaRMSNormGated):
     pass
 
-
+# Fix from https://github.com/huggingface/transformers/pull/35154 by @vasqu 
 def apply_mask_to_padding_states(hidden_states, attention_mask):
     """
     Tunes out the hidden states for padding tokens, see https://github.com/state-spaces/mamba/issues/66
